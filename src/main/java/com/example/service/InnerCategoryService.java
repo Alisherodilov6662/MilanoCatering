@@ -85,7 +85,7 @@ public class InnerCategoryService {
         InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
         dto.setPhoto(entity.getPhotoId());
         dto.setCategory(entity.getCategoryId());
-        if (language.equals("uz")){
+        if (language.equals("UZ")){
         dto.setNameUz(entity.getNameUz());
         dto.setDescriptionUz(entity.getDescriptionUz());
         }else {

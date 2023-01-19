@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.dto.category.InnerCategoryCreationDto;
 import com.example.dto.category.InnerCategoryGetDTO;
 import com.example.dto.jwt.JwtDTO;
+import com.example.enums.Language;
 import com.example.service.InnerCategoryService;
 import com.example.util.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.Operation;
@@ -41,20 +42,13 @@ public class InnerCategoryController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/public/getList/uz")
+    @GetMapping("/public/getList/{lang}")
     @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
-    public ResponseEntity<Page<InnerCategoryGetDTO>> getListUz(@PathParam("page") Integer page,
+    public ResponseEntity<Page<InnerCategoryGetDTO>> getListUz(@PathVariable("lang") Language lang,
+                                                               @PathParam("page") Integer page,
                                                              @PathParam("size") Integer size){
 
-        Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,"uz");
-        return ResponseEntity.ok(result);
-    }
-    @GetMapping("/public/getList/ru")
-    @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
-    public ResponseEntity<Page<InnerCategoryGetDTO>> getListRu(@PathParam("page") Integer page,
-                                                             @PathParam("size") Integer size){
-
-        Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,"ru");
+        Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,lang.name());
         return ResponseEntity.ok(result);
     }
     @PreAuthorize("hasRole('ADMIN')")
