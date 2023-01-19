@@ -1,6 +1,6 @@
 ### Upload file
 POST http://localhost:8081/attach/upload
-#Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzE4MTUwNDUsInVzZXJuYW1lIjoibmF6YXJvdmF6aW1qb244ODhAZ21haWwuY29tIiwicm9sZSI6IlJPTEVfVVNFUiIsImV4cCI6MTY3MTkwMTQ0NSwiaXNzIjoia3VudXogdGVzdCBwb3J0YWxpIn0.GU4r5078UXpP4gJcNr7pkru0-lk9J0paeU-8VhaZpz49JBMJe6Y0dUKAWJRTdUjUZbevcvi6hWHNaXGZVTQvaw
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
@@ -15,4 +15,5 @@ Content-Disposition: form-data; name="file"; filename="pic.jpg"
 GET http://localhost:8081/attach/open/1
 
 ### delete
-DELETE http://localhost:8081/attach/delete/1
+DELETE http://localhost:8081/attach/delete/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg

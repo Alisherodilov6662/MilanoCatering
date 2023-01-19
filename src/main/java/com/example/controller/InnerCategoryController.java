@@ -44,11 +44,22 @@ public class InnerCategoryController {
 
     @GetMapping("/public/getList/{lang}")
     @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
-    public ResponseEntity<Page<InnerCategoryGetDTO>> getListUz(@PathVariable("lang") Language lang,
+    public ResponseEntity<Page<InnerCategoryGetDTO>> getList(@PathVariable("lang") Language lang,
                                                                @PathParam("page") Integer page,
                                                              @PathParam("size") Integer size){
 
         Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,lang.name());
+        return ResponseEntity.ok(result);
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/getListAll/{lang}")
+    @Operation(summary = "Method for get", description = "This method used to get all inner category with pagination")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<Page<InnerCategoryGetDTO>> getListAll(@PathVariable("lang") Language lang,
+                                                               @PathParam("page") Integer page,
+                                                               @PathParam("size") Integer size){
+
+        Page<InnerCategoryGetDTO> result = innerCategoryService.getListAll(page, size,lang.name());
         return ResponseEntity.ok(result);
     }
     @PreAuthorize("hasRole('ADMIN')")
@@ -59,5 +70,14 @@ public class InnerCategoryController {
         Boolean result = innerCategoryService.delete(id);
         return ResponseEntity.ok(result);
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation(summary = "Method for change status", description = "This method used to change status inner category")
+    @SecurityRequirement(name = "Bearer Authentication")
+    @PutMapping("/changeStatus/{id}")
+    public ResponseEntity<String> changeStatus(@PathVariable("id") Long id){
+        String result = innerCategoryService.changeStatus(id);
+        return ResponseEntity.ok(result);
+    }
+
 
 }

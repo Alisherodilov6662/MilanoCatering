@@ -17,4 +17,5 @@ public class InnerCategoryCreationDto {
     private String nameRu;
     private String descriptionUz;
     private String descriptionRu;
+    private Boolean visible;
 }

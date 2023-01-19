@@ -41,6 +41,8 @@ public class InnerCategoryEntity {
 
     @Column(name = "description_ru")
     private String descriptionRu;
+    @Column
+    private Boolean visible;
 
     @CreationTimestamp
     @CreatedDate

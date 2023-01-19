@@ -15,4 +15,5 @@ public class InnerCategoryGetDTO {
     private String nameUz;
     private String descriptionRu;
     private String descriptionUz;
+    private Boolean visible;
 }
