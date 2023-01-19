@@ -1,5 +1,6 @@
-package com.example.entity.category;
+package com.example.dto.category;
 
+import com.example.entity.category.CategoryEntity;
 import lombok.Data;
 
 import java.io.Serializable;
