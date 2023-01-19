@@ -1,13 +1,13 @@
 ### CREATE INNER CATEGORY
 POST http://localhost:8081/innerCategory/create
 Content-Type: application/json
-#Authorization: Bearer
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
 
 {
   "photo": 2,
   "category": 1,
-  "nameUz": "Shirinliklar1111",
-  "nameRu": "Сладости1111",
+  "nameUz": "bigman",
+  "nameRu": "Сладости111111",
   "descriptionUz": "Medovik tortlar",
   "descriptionRu": "Торты Медовик"
 
@@ -28,7 +28,7 @@ Authorization: Bearer
 }
 
 ### GET INNER CATEGORY WITH PAGENATION
-GET http://localhost:8081/innerCategory/getList/uz?page=2&size=5
+GET http://localhost:8081/innerCategory/public/getList/uz?page=2&size=5
 ### DELET INNER CATEGORY WITH ID
 DELETE http://localhost:8081/innerCategory/delete/1
 

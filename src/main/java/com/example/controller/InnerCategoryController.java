@@ -23,25 +23,25 @@ public class InnerCategoryController {
         this.innerCategoryService = innerCategoryService;
     }
 
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     @Operation(summary = "Method for create", description = "This method used to create inner category")
-//    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<InnerCategoryCreationDto> create(@RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryCreationDto result = innerCategoryService.create(innerCategoryCreationDto);
         return ResponseEntity.ok(result);
     }
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/update/{id}")
     @Operation(summary = "Method for update", description = "This method used to update inner category")
-//    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<InnerCategoryCreationDto> update(@PathVariable("id") Long id,
                                                            @RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryCreationDto result = innerCategoryService.update(id,innerCategoryCreationDto);
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping("/getList/uz")
+    @GetMapping("/public/getList/uz")
     @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
     public ResponseEntity<Page<InnerCategoryGetDTO>> getListUz(@PathParam("page") Integer page,
                                                              @PathParam("size") Integer size){
@@ -49,7 +49,7 @@ public class InnerCategoryController {
         Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,"uz");
         return ResponseEntity.ok(result);
     }
-    @GetMapping("/getList/ru")
+    @GetMapping("/public/getList/ru")
     @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
     public ResponseEntity<Page<InnerCategoryGetDTO>> getListRu(@PathParam("page") Integer page,
                                                              @PathParam("size") Integer size){
@@ -57,10 +57,10 @@ public class InnerCategoryController {
         Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size,"ru");
         return ResponseEntity.ok(result);
     }
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/delete/{id}")
     @Operation(summary = "Method for delete", description = "This method used to delete inner category")
-//    @SecurityRequirement(name = "Bearer Authentication")
+    @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<Boolean> delete(@PathVariable("id") Long id){
         Boolean result = innerCategoryService.delete(id);
         return ResponseEntity.ok(result);
