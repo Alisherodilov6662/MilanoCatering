@@ -20,6 +20,9 @@ public class AttachEntity {
     private String name;
 
     @Column
+    private String extension;
+
+    @Column
     private LocalDateTime createdDate;
 
 }
