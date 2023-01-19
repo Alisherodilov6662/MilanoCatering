@@ -4,15 +4,15 @@ POST http://localhost:8081/attach/upload
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="rasm.jpg"
+Content-Disposition: form-data; name="file"; filename="pic.jpg"
 
-< C:\Users\user\Desktop\rasm.jpg
+< /home/bigman/Pictures/pic.jpg
 
 
 
 
 ### open
-GET http://localhost:8081/attach/open/26
+GET http://localhost:8081/attach/open/1
 
 ### delete
-DELETE http://localhost:8081/attach/delete/27
+DELETE http://localhost:8081/attach/delete/1

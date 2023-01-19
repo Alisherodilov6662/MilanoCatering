@@ -67,6 +67,8 @@ public class SecurityConfig {
                 .requestMatchers(AUTH_WHITELIST).permitAll()
                 .requestMatchers("/auth/**").permitAll()
                 .requestMatchers("/attach/**").permitAll()
+                .requestMatchers("/category/**").permitAll()
+                .requestMatchers("/innerCategory/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

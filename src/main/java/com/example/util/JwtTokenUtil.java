@@ -35,7 +35,7 @@ public class JwtTokenUtil {
         ProfileRole profileRole = ProfileRole.valueOf(role);
         return new JwtDTO(username,profileRole);
     }
-    public static String decodeEmail(String token){
+    public static String decodeUsername(String token){
         JwtParser jwtParser = Jwts.parser();
         jwtParser.setSigningKey(secretKey);
         Jws<Claims> jws = jwtParser.parseClaimsJws(token);

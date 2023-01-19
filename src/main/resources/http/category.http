@@ -1,0 +1,34 @@
+### CREATE INNER CATEGORY
+POST http://localhost:8081/innerCategory/create
+Content-Type: application/json
+#Authorization: Bearer
+
+{
+  "photo": 2,
+  "category": 1,
+  "nameUz": "Shirinliklar1111",
+  "nameRu": "Сладости1111",
+  "descriptionUz": "Medovik tortlar",
+  "descriptionRu": "Торты Медовик"
+
+}
+
+### UPDATE INNER CATEGORY
+PUT http://localhost:8081/innerCategory/update/1
+Content-Type: application/json
+Authorization: Bearer
+
+{
+  "photo": 2,
+  "category": 1,
+  "nameUz": "Shirinliklar Update",
+  "nameRu": "Сладости Update",
+  "descriptionUz": "Medovik tortlar Update",
+  "descriptionRu": "Торты Медовик Update"
+}
+
+### GET INNER CATEGORY WITH PAGENATION
+GET http://localhost:8081/innerCategory/getList/uz?page=2&size=5
+### DELET INNER CATEGORY WITH ID
+DELETE http://localhost:8081/innerCategory/delete/1
+

@@ -4,11 +4,13 @@ import com.example.entity.AttachEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "innerCategory")
 @Getter
 @Setter
 public class InnerCategoryEntity {
@@ -16,14 +18,16 @@ public class InnerCategoryEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "photo_id")
+    private Long photoId;
     @OneToOne
-    @JoinColumn(name = "photo_id")
+    @JoinColumn(name = "photo_id",insertable = false,updatable = false)
     private AttachEntity photo;
 
-
+    @Column(name = "category_id")
+    private Long categoryId;
     @ManyToOne
-    @JoinColumn(name = "category_id")
+    @JoinColumn(name = "category_id",insertable = false,updatable = false)
     private CategoryEntity category;
 
     @Column(name = "name_uz")
@@ -38,6 +42,8 @@ public class InnerCategoryEntity {
     @Column(name = "description_ru")
     private String descriptionRu;
 
+    @CreationTimestamp
+    @CreatedDate
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 

@@ -7,7 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "attach")
 @Getter
 @Setter
 public class AttachEntity {

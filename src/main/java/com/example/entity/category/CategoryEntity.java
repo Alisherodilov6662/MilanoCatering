@@ -12,7 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table
+@Table(name = "category")
 @Getter
 @Setter
 public class CategoryEntity {

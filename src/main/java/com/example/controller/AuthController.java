@@ -19,7 +19,7 @@ public class AuthController {
 
     /**
      *
-     * @param dto
+     * @param  dto LoginDTO
      *  username,password:
      * @return LoginResponseDTO
      * name,surname,username,role,token.

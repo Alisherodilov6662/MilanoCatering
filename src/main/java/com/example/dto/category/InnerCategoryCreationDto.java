@@ -11,7 +11,6 @@ import java.io.Serializable;
 
 @Data
 public class InnerCategoryCreationDto {
-
     private Long photo;
     private Long category;
     private String nameUz;
