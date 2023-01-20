@@ -5,8 +5,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lI
 
 {
   "photo": 3,
-  "nameUz": "scdcd",
-  "nameRu": "Слаdдо",
+  "nameUz": "scdcDd",
+  "nameRu": "СлаDDdдо",
   "descriptionUz": "Medovidk tortlar",
   "descriptionRu": "Торты Меdдовик"
 
@@ -19,8 +19,8 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lI
 
 {
   "photo": 2,
-  "nameUz": "qs",
-  "nameRu": "menrUpdate",
+  "nameUz": "qDDs",
+  "nameRu": "meDnrUpdate",
   "descriptionUz": "Medovik tortlar Update",
   "descriptionRu": "Торты Медjовик Update"
 }
