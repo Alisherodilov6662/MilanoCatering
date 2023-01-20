@@ -1,19 +1,18 @@
 ### Upload file
 POST http://localhost:8081/attach/upload
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMjYxODksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMTI1ODksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.LTC4yVU5Udkv4i4ONDq-I5ow14WijGoTkkO0PriLO8C7zxgwxH9SsHA85Eyl3OrYhm40x0rUknhtsN1VrrXwxQ
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="pic.jpg"
+Content-Disposition: form-data; name="file"; filename="photo_png.png"
 
-< /home/bigman/Pictures/pic.jpg
+< C:\Users\user\Desktop\photo_png.png
 
 
 
 
 ### open
-GET http://localhost:8081/attach/open/1
+GET http://localhost:8081/attach/public/open/1
 
 ### delete
-DELETE http://localhost:8081/attach/delete/3
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
+DELETE http://localhost:8081/attach/delete/1
