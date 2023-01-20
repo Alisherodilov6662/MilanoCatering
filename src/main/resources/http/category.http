@@ -1,0 +1,39 @@
+### CREATE CATEGORY
+POST http://localhost:8081/category/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+
+{
+  "photo": 3,
+  "nameUz": "scdcd",
+  "nameRu": "Слаdдо",
+  "descriptionUz": "Medovidk tortlar",
+  "descriptionRu": "Торты Меdдовик"
+
+}
+
+### UPDATE CATEGORY
+PUT http://localhost:8081/category/update/7
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+
+{
+  "photo": 2,
+  "nameUz": "qs",
+  "nameRu": "menrUpdate",
+  "descriptionUz": "Medovik tortlar Update",
+  "descriptionRu": "Торты Медjовик Update"
+}
+
+### GET CATEGORY WITH PAGENATION
+GET http://localhost:8081/category/public/getList/UZ?page=0&size=1
+### GET FROM ADMIN CATERGORY WITH PAGINATION
+GET http://localhost:8081/category/getListAll?page=0&size=10
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+### PUT CHANGE CATEGORY STATUS
+PUT http://localhost:8081/category/changeStatus/7
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+### DELETE CATEGORY WITH ID
+DELETE http://localhost:8081/category/delete/7
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+
