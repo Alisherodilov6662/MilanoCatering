@@ -8,6 +8,7 @@ import com.example.service.InnerCategoryService;
 import com.example.util.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,7 +29,7 @@ public class InnerCategoryController {
     @PostMapping("/create")
     @Operation(summary = "Method for create", description = "This method used to create inner category")
     @SecurityRequirement(name = "Bearer Authentication")
-    public ResponseEntity<InnerCategoryCreationDto> create(@RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
+    public ResponseEntity<InnerCategoryCreationDto> create(@Valid @RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryCreationDto result = innerCategoryService.create(innerCategoryCreationDto);
         return ResponseEntity.ok(result);
     }
@@ -37,7 +38,7 @@ public class InnerCategoryController {
     @Operation(summary = "Method for update", description = "This method used to update inner category")
     @SecurityRequirement(name = "Bearer Authentication")
     public ResponseEntity<InnerCategoryCreationDto> update(@PathVariable("id") Long id,
-                                                           @RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
+                                                           @Valid @RequestBody InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryCreationDto result = innerCategoryService.update(id,innerCategoryCreationDto);
         return ResponseEntity.ok(result);
     }
@@ -52,14 +53,13 @@ public class InnerCategoryController {
         return ResponseEntity.ok(result);
     }
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/getListAll/{lang}")
+    @GetMapping("/getListAll")
     @Operation(summary = "Method for get", description = "This method used to get all inner category with pagination")
     @SecurityRequirement(name = "Bearer Authentication")
-    public ResponseEntity<Page<InnerCategoryGetDTO>> getListAll(@PathVariable("lang") Language lang,
-                                                               @PathParam("page") Integer page,
+    public ResponseEntity<Page<InnerCategoryGetDTO>> getListAll(@PathParam("page") Integer page,
                                                                @PathParam("size") Integer size){
 
-        Page<InnerCategoryGetDTO> result = innerCategoryService.getListAll(page, size,lang.name());
+        Page<InnerCategoryGetDTO> result = innerCategoryService.getListAll(page, size);
         return ResponseEntity.ok(result);
     }
     @PreAuthorize("hasRole('ADMIN')")

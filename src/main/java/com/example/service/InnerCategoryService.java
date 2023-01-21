@@ -85,14 +85,14 @@ public class InnerCategoryService {
         content.forEach(entity->dtoList.add(getDTO(entity,language)));
         return new PageImpl<>(dtoList,pageable,totalElements);
     }
-    public Page<InnerCategoryGetDTO> getListAll(Integer page, Integer size,String language) {
+    public Page<InnerCategoryGetDTO> getListAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page,size);
 //        Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findAll(pageable);
         Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findAll(pageable);
         List<InnerCategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
         List<InnerCategoryGetDTO> dtoList = new LinkedList<>();
-        content.forEach(entity->dtoList.add(getDTOForAdmin(entity,language)));
+        content.forEach(entity->dtoList.add(getDTOForAdmin(entity)));
         return new PageImpl<>(dtoList,pageable,totalElements);
     }
     public InnerCategoryGetDTO getDTO(InnerCategoryEntity entity,String language){
@@ -108,22 +108,15 @@ public class InnerCategoryService {
         }
         return dto;
     }
-    public InnerCategoryGetDTO getDTOForAdmin(InnerCategoryEntity entity,String language){
+    public InnerCategoryGetDTO getDTOForAdmin(InnerCategoryEntity entity){
         InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
         dto.setPhoto(entity.getPhotoId());
         dto.setCategory(entity.getCategoryId());
-        if (language.equals("UZ")){
-            dto.setNameUz(entity.getNameUz());
-            dto.setDescriptionUz(entity.getDescriptionUz());
-        }else if (language.equals("RU")){
-            dto.setNameRu(entity.getNameRu());
-            dto.setDescriptionRu(entity.getDescriptionRu());
-        }else {
-            dto.setNameUz(entity.getNameUz());
-            dto.setDescriptionUz(entity.getDescriptionUz());
-            dto.setNameRu(entity.getNameRu());
-            dto.setDescriptionRu(entity.getDescriptionRu());
-        }
+        dto.setNameUz(entity.getNameUz());
+        dto.setDescriptionUz(entity.getDescriptionUz());
+        dto.setNameRu(entity.getNameRu());
+        dto.setDescriptionRu(entity.getDescriptionRu());
+
         return dto;
     }
 

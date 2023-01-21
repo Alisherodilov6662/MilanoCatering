@@ -1,15 +1,15 @@
 ### CREATE INNER CATEGORY
 POST http://localhost:8081/innerCategory/create
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyODg4NjEsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzNzUyNjEsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3pFdyYniLSJebd-LhAraAvt6bfc8YpFnPIB1BP9hptqCo6ASfIKzWhi9JqnPjbSxXrrlIsXCX84KucjP47oP9A
 
 {
   "photo": 2,
   "category": 1,
-  "nameUz": "bigman22",
-  "nameRu": "Сладости22",
-  "descriptionUz": "Medovik tortlar",
-  "descriptionRu": "Торты Медовик"
+  "nameUz": "2222222222",
+  "nameRu": "Сладости222222222",
+  "descriptionUz": "Medovik tortlar dsdsdsdsdsdsds",
+  "descriptionRu": "Торты Медовик dsdsdsdsdsdsdsd"
 
 }
 
@@ -30,7 +30,7 @@ Authorization: Bearer
 ### GET INNER CATEGORY WITH PAGENATION
 GET http://localhost:8081/innerCategory/public/getList/UZ?page=0&size=10
 ### GET FROM ADMIN INNER CATERGORY WITH PAGINATION
-GET http://localhost:8081/innerCategory/getListAll/ALL?page=0&size=10
+GET http://localhost:8081/innerCategory/getListAll?page=0&size=10
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
 ### PUT CHANGE INNER CATEGORY STATUS
 PUT http://localhost:8081/innerCategory/changeStatus/13
