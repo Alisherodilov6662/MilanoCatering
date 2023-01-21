@@ -33,10 +33,10 @@ public class CategoryEntity {
     @Column(name = "name_ru")
     private String nameRu;
 
-    @Column(name = "description_uz")
+    @Column(name = "description_uz",columnDefinition = "varchar")
     private String descriptionUz;
 
-    @Column(name = "description_ru")
+    @Column(name = "description_ru",columnDefinition = "varchar")
     private String descriptionRu;
 
     @CreationTimestamp
@@ -49,7 +49,6 @@ public class CategoryEntity {
     @Column(name = "update_date")
     private LocalDateTime updatedDate;
 
-
-
-
+    @Column
+    private Boolean visible;
 }
