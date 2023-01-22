@@ -30,7 +30,7 @@ public class CorsConfig {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/").allowedOrigins("http://127.0.0.1:5500").allowedOrigins("https://milanos.netlify.app/");
+                registry.addMapping("/").allowedOrigins("http://192.168.0.104").allowedOrigins("https://milanos.netlify.app/");
             }
         };
     }
