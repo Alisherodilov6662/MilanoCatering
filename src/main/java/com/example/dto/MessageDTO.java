@@ -15,13 +15,11 @@ import java.time.LocalDateTime;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class MessageDTO {
 
-    private Long id;
     @Length(min = 2, message = "Name has to 2 letters at least !")
     private String name;
-    @Length(min = 2, message = "Name has to 2 letters at least !")
-    private String surname;
+    @Length(min=2, message = "Message is not valid ! ")
     private String message;
     @ValidPhone(message = "Phone is not valid !")
     private String phone;
-    private LocalDateTime createdDate;
+
 }
