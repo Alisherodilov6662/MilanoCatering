@@ -1,13 +1,12 @@
 package com.example.service;
 
-import com.example.dto.category.InnerCategoryCreationDto;
-import com.example.dto.category.InnerCategoryGetDTO;
-import com.example.dto.jwt.JwtDTO;
+import com.example.dto.category.innerCategory.InnerCategoryCreationDto;
+import com.example.dto.category.innerCategory.InnerCategoryGetDTO;
 import com.example.entity.category.InnerCategoryEntity;
+import com.example.enums.Status;
 import com.example.exception.InnerCategoryAlreadyExistsException;
 import com.example.exception.InnerCategoryNotFoundException;
 import com.example.repositiry.InnerCategoryRepository;
-import com.example.util.RoleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +23,7 @@ public class InnerCategoryService {
     @Autowired
     private InnerCategoryRepository innerCategoryRepository;
 
+
     public InnerCategoryCreationDto create(InnerCategoryCreationDto innerCategoryCreationDto) {
         Optional<InnerCategoryEntity> byNameUz = innerCategoryRepository.findByNameUz(innerCategoryCreationDto.getNameUz());
         Optional<InnerCategoryEntity> byNameRu = innerCategoryRepository.findByNameRu(innerCategoryCreationDto.getNameRu());
@@ -32,7 +32,6 @@ public class InnerCategoryService {
         }
         InnerCategoryEntity entity = toEntity(innerCategoryCreationDto);
         innerCategoryRepository.save(entity);
-        innerCategoryCreationDto.setVisible(entity.getVisible());
         return innerCategoryCreationDto;
     }
 
@@ -52,6 +51,8 @@ public class InnerCategoryService {
         return innerCategoryCreationDto;
 
     }
+
+
     public InnerCategoryEntity toEntity(InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryEntity entity = new InnerCategoryEntity();
         entity.setPhotoId(innerCategoryCreationDto.getPhoto());
@@ -60,7 +61,8 @@ public class InnerCategoryService {
         entity.setNameRu(innerCategoryCreationDto.getNameRu());
         entity.setDescriptionUz(innerCategoryCreationDto.getDescriptionUz());
         entity.setDescriptionRu(innerCategoryCreationDto.getDescriptionRu());
-        entity.setVisible(false);
+        entity.setVisible(true);
+        entity.setStatus(Status.NOT_PUBLISHED);
         return entity;
     }
 

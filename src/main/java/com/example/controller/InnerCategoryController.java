@@ -1,16 +1,13 @@
 package com.example.controller;
 
-import com.example.dto.category.InnerCategoryCreationDto;
-import com.example.dto.category.InnerCategoryGetDTO;
-import com.example.dto.jwt.JwtDTO;
+import com.example.dto.category.innerCategory.InnerCategoryCreationDto;
+import com.example.dto.category.innerCategory.InnerCategoryGetDTO;
 import com.example.enums.Language;
 import com.example.service.InnerCategoryService;
-import com.example.util.JwtTokenUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

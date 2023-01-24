@@ -1,4 +1,4 @@
-package com.example.dto.category;
+package com.example.dto.category.innerCategory;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -25,5 +25,4 @@ public class InnerCategoryCreationDto {
     private String descriptionUz;
     @Length(min = 20,message = "Length must be longer then 20")
     private String descriptionRu;
-    private Boolean visible;
 }

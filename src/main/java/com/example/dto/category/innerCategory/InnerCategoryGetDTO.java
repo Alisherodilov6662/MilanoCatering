@@ -1,4 +1,4 @@
-package com.example.dto.category;
+package com.example.dto.category.innerCategory;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

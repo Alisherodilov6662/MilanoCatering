@@ -1,12 +1,12 @@
 ### Upload file
 POST http://localhost:8081/attach/upload
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMjYxODksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMTI1ODksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.LTC4yVU5Udkv4i4ONDq-I5ow14WijGoTkkO0PriLO8C7zxgwxH9SsHA85Eyl3OrYhm40x0rUknhtsN1VrrXwxQ
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQ0NzkyNzMsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQ1NjU2NzMsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.J8Hye424fYDIZSY_7eMyFKc0Blfou3-_u_nWfypLu4wUCk6ytTUCp3Q6lbje9BFqA0yIKlrBvbmk-SrdxK9RSw
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
-Content-Disposition: form-data; name="file"; filename="photo_png.png"
+Content-Disposition: form-data; name="file"; filename="FOR GIT.JPG"
 
-< C:\Users\user\Desktop\photo_png.png
+< C:\Users\Admin\Pictures\Screenshots\Снимок экрана (2).png
 
 
 
@@ -15,4 +15,5 @@ Content-Disposition: form-data; name="file"; filename="photo_png.png"
 GET http://localhost:8081/attach/public/open/1
 
 ### delete
-DELETE http://localhost:8081/attach/delete/1
+DELETE http://localhost:8081/attach/delete/3
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQxMzIyMzksInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQyMTg2MzksImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.3DjXWDMqFf06XtbZ0RSOJ3PZdNTYu0nwVjaI4h3CJnMEN7Cb73QjUd1GYnLcdfgUW39z828dAXvsgVBT7OljUg
