@@ -91,4 +91,13 @@ public class CategoryController {
         return ResponseEntity.ok(result);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/getByIdForUpdate/{id}")
+    @Operation(summary = "Method for get", description = "This method used to get Category By Id for Update for Admin")
+    @SecurityRequirement(name = "Bearer Authentication")
+    public ResponseEntity<CategoryCreationDto> getByIdForUpdate(@PathVariable("id") Long id){
+        CategoryCreationDto result = categoryService.getByIdForUpdate(id);
+        return ResponseEntity.ok(result);
+    }
+
 }
