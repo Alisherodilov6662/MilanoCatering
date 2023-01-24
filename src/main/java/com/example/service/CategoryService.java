@@ -1,14 +1,12 @@
 package com.example.service;
 
-import com.example.dto.category.superCategory.CategoryGetDTO;
 import com.example.dto.category.superCategory.CategoryCreationDto;
+import com.example.dto.category.superCategory.CategoryGetDTO;
 import com.example.dto.category.superCategory.CategoryGetShortInfo;
 import com.example.entity.category.CategoryEntity;
-import com.example.entity.category.InnerCategoryEntity;
 import com.example.enums.Status;
 import com.example.exception.CategoryAlreadyExistsException;
 import com.example.exception.CategoryNotFoundException;
-import com.example.exception.InnerCategoryNotFoundException;
 import com.example.repositiry.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -74,6 +72,17 @@ public class CategoryService {
     public CategoryGetDTO getById(Long id) {
         CategoryEntity entity = getEntityById(id);
         return getDtoAll(entity);
+    }
+
+    public CategoryCreationDto getByIdForUpdate(Long id){
+        CategoryEntity entity=getEntityById(id);
+        CategoryCreationDto dto=new CategoryCreationDto();
+        dto.setNameUz(entity.getNameUz());
+        dto.setNameRu(entity.getNameRu());
+        dto.setDescriptionRu(entity.getDescriptionRu());
+        dto.setDescriptionUz(entity.getDescriptionUz());
+        dto.setPhoto(entity.getPhotoId());
+     return dto;
     }
 
     public Page<CategoryGetShortInfo> getListAll(Integer page, Integer size) {
