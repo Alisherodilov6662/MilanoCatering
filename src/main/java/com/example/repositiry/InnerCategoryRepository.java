@@ -14,4 +14,5 @@ public interface InnerCategoryRepository extends JpaRepository<InnerCategoryEnti
     Optional<InnerCategoryEntity> findByNameRu(String nameRu);
     Page<InnerCategoryEntity> findByVisibleTrue(Pageable pageable);
 
+    Page<InnerCategoryEntity> findByCategoryId(Pageable pageable, Long id);
 }
