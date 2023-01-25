@@ -16,7 +16,7 @@ public class SendMessageService {
         String msg = String.format(message, dto.getName(), dto.getPhone(), dto.getMessage());
 
         RestTemplate restTemplate = new RestTemplate();
-        restTemplate.getForEntity("https://api.telegram.org/bot5807548287:AAHvvq0YhxutTZRKX2TsZ7oYsGuvqM4o1cY/sendMessage?chat_id=575079444&text="+msg, String.class);
+        restTemplate.getForEntity("https://api.telegram.org/bot5807548287:AAHvvq0YhxutTZRKX2TsZ7oYsGuvqM4o1cY/sendMessage?chat_id=5943936481&text="+msg, String.class);
         return dto;
     }
 }
