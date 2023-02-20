@@ -1,5 +1,5 @@
 ### CREATE CATEGORY
-POST http://localhost:8081/category/create
+POST http://146.190.37.206:8081/category/create
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
 
@@ -15,7 +15,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lI
 ### UPDATE CATEGORY
 PUT http://localhost:8081/category/update/7
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzMjYyNTgsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.dlUSADqbklZiS-4FVpL26nAKoDJwx9jmMX1dovzr4pydOkn63zajzj_78eaosK8e5tZ_7dFsjY5h88ksPYSobg
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyOTE3NzQsInVzZXJuYW1lIjoiYWJkdWhha2ltXzEyMzQ1Iiwicm9sZSI6IlJPTEVfQURNSU4iLCJleHAiOjE2NzQzNzgxNzQsImlzcyI6IllvdVR1YmUgYnkgVGVhbVNlY3JldCJ9.R7xzk5VlzoZGKP-bDp1GogT7AMDLVTabqJFoSU1lB3VCBtVFeX8SJEqFOWiRJIr-d3_Mz6WZSHKKYT6Pr_x_cQ
 
 {
   "photo": 2,
@@ -24,6 +24,11 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJpYXQiOjE2NzQyMzk4NTgsInVzZXJuYW1lI
   "descriptionUz": "Medovik tortlar Update",
   "descriptionRu": "Торты Медjовик Update"
 }
+
+
+
+
+
 
 ### GET CATEGORY WITH PAGENATION
 GET http://localhost:8081/category/public/getList/UZ?page=0&size=1

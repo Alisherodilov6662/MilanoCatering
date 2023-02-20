@@ -1,13 +1,15 @@
 package com.example.service;
 
-import com.example.dto.category.InnerCategoryCreationDto;
-import com.example.dto.category.InnerCategoryGetDTO;
-import com.example.dto.jwt.JwtDTO;
+import com.example.dto.category.innerCategory.InnerCategoryCreationDto;
+import com.example.dto.category.innerCategory.InnerCategoryGetDTO;
+import com.example.dto.category.innerCategory.InnerCategoryShortInfo;
+import com.example.dto.category.innerCategory.InnerCategoryUpdateDTO;
 import com.example.entity.category.InnerCategoryEntity;
+import com.example.enums.Status;
+import com.example.exception.CategoryNotFoundException;
 import com.example.exception.InnerCategoryAlreadyExistsException;
 import com.example.exception.InnerCategoryNotFoundException;
 import com.example.repositiry.InnerCategoryRepository;
-import com.example.util.RoleUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -24,6 +26,7 @@ public class InnerCategoryService {
     @Autowired
     private InnerCategoryRepository innerCategoryRepository;
 
+
     public InnerCategoryCreationDto create(InnerCategoryCreationDto innerCategoryCreationDto) {
         Optional<InnerCategoryEntity> byNameUz = innerCategoryRepository.findByNameUz(innerCategoryCreationDto.getNameUz());
         Optional<InnerCategoryEntity> byNameRu = innerCategoryRepository.findByNameRu(innerCategoryCreationDto.getNameRu());
@@ -32,12 +35,11 @@ public class InnerCategoryService {
         }
         InnerCategoryEntity entity = toEntity(innerCategoryCreationDto);
         innerCategoryRepository.save(entity);
-        innerCategoryCreationDto.setVisible(entity.getVisible());
         return innerCategoryCreationDto;
     }
 
-    public InnerCategoryCreationDto update(Long id,InnerCategoryCreationDto innerCategoryCreationDto) {
-        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(id);
+    public InnerCategoryCreationDto update(Long innerCategoryId,InnerCategoryCreationDto innerCategoryCreationDto) {
+        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(innerCategoryId);
         if (optional.isEmpty()){
             throw new InnerCategoryNotFoundException("Inner category not found");
         }
@@ -52,6 +54,8 @@ public class InnerCategoryService {
         return innerCategoryCreationDto;
 
     }
+
+
     public InnerCategoryEntity toEntity(InnerCategoryCreationDto innerCategoryCreationDto){
         InnerCategoryEntity entity = new InnerCategoryEntity();
         entity.setPhotoId(innerCategoryCreationDto.getPhoto());
@@ -60,12 +64,13 @@ public class InnerCategoryService {
         entity.setNameRu(innerCategoryCreationDto.getNameRu());
         entity.setDescriptionUz(innerCategoryCreationDto.getDescriptionUz());
         entity.setDescriptionRu(innerCategoryCreationDto.getDescriptionRu());
-        entity.setVisible(false);
+        entity.setVisible(true);
+        entity.setStatus(Status.NOT_PUBLISHED);
         return entity;
     }
 
-    public Boolean delete(Long id) {
-        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(id);
+    public Boolean delete(Long innerCategoryId) {
+        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(innerCategoryId);
         if (optional.isEmpty()){
             throw new InnerCategoryNotFoundException("Inner category not found");
         }
@@ -85,20 +90,18 @@ public class InnerCategoryService {
         content.forEach(entity->dtoList.add(getDTO(entity,language)));
         return new PageImpl<>(dtoList,pageable,totalElements);
     }
-    public Page<InnerCategoryGetDTO> getListAll(Integer page, Integer size) {
+    public Page<InnerCategoryShortInfo> getListAll(Integer page, Integer size,Long categoryId) {
         Pageable pageable = PageRequest.of(page,size);
-//        Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findAll(pageable);
-        Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findAll(pageable);
+        Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findByCategoryId(pageable,categoryId);
         List<InnerCategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
-        List<InnerCategoryGetDTO> dtoList = new LinkedList<>();
+        List<InnerCategoryShortInfo> dtoList = new LinkedList<>();
         content.forEach(entity->dtoList.add(getDTOForAdmin(entity)));
         return new PageImpl<>(dtoList,pageable,totalElements);
     }
     public InnerCategoryGetDTO getDTO(InnerCategoryEntity entity,String language){
         InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
         dto.setPhoto(entity.getPhotoId());
-        dto.setCategory(entity.getCategoryId());
         if (language.equals("UZ")){
         dto.setNameUz(entity.getNameUz());
         dto.setDescriptionUz(entity.getDescriptionUz());
@@ -108,26 +111,62 @@ public class InnerCategoryService {
         }
         return dto;
     }
-    public InnerCategoryGetDTO getDTOForAdmin(InnerCategoryEntity entity){
-        InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
-        dto.setPhoto(entity.getPhotoId());
-        dto.setCategory(entity.getCategoryId());
+    public InnerCategoryShortInfo getDTOForAdmin(InnerCategoryEntity entity){
+        InnerCategoryShortInfo dto = new InnerCategoryShortInfo();
+        dto.setId(entity.getId());
         dto.setNameUz(entity.getNameUz());
-        dto.setDescriptionUz(entity.getDescriptionUz());
-        dto.setNameRu(entity.getNameRu());
-        dto.setDescriptionRu(entity.getDescriptionRu());
-
         return dto;
     }
 
-    public String changeStatus(Long id) {
-        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(id);
+    public String changeStatus(Long innerCategoryId) {
+        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(innerCategoryId);
         if (optional.isEmpty()) {
             throw new InnerCategoryNotFoundException("Inner category not found");
         }
         InnerCategoryEntity entity = optional.get();
-        entity.setVisible(true);
+        if (entity.getStatus().equals(Status.PUBLISHED)){
+            entity.setStatus(Status.NOT_PUBLISHED);
+            innerCategoryRepository.save(entity);
+            return "Status successfully changed to not published";
+        }
+        if (entity.getStatus().equals(Status.NOT_PUBLISHED)){
+            entity.setStatus(Status.PUBLISHED);
+        }
         innerCategoryRepository.save(entity);
-        return "Status successfully changed";
+        return "Status successfully changed to published";
+    }
+
+    public InnerCategoryGetDTO getById(Long innerCategoryId) {
+        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(innerCategoryId);
+        if (optional.isEmpty()) {
+            throw new CategoryNotFoundException("innerCategory not found");
+        }
+        InnerCategoryEntity entity = optional.get();
+        return toGetDTO(entity);
+    }
+    public InnerCategoryUpdateDTO getByIdForUpdate(Long innerCategoryId) {
+        Optional<InnerCategoryEntity> optional = innerCategoryRepository.findById(innerCategoryId);
+        if (optional.isEmpty()) {
+            throw new CategoryNotFoundException("innerCategory not found");
+        }
+        InnerCategoryEntity entity = optional.get();
+        InnerCategoryUpdateDTO dto = new InnerCategoryUpdateDTO();
+        dto.setPhoto(entity.getPhotoId());
+        dto.setNameRu(entity.getNameRu());
+        dto.setNameUz(entity.getNameUz());
+        dto.setDescriptionUz(entity.getDescriptionUz());
+        dto.setDescriptionRu(entity.getDescriptionRu());
+        return dto;
+    }
+    public InnerCategoryGetDTO toGetDTO(InnerCategoryEntity entity){
+        InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
+        dto.setPhoto(entity.getPhotoId());
+        dto.setNameRu(entity.getNameRu());
+        dto.setNameUz(entity.getNameUz());
+        dto.setDescriptionRu(entity.getDescriptionRu());
+        dto.setDescriptionUz(entity.getDescriptionUz());
+        dto.setStatus(entity.getStatus());
+        dto.setCreatedDate(entity.getCreatedDate());
+        return dto;
     }
 }

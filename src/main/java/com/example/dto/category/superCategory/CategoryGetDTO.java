@@ -1,5 +1,6 @@
 package com.example.dto.category.superCategory;
 
+import com.example.enums.Status;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -20,5 +21,5 @@ public class CategoryGetDTO {
     private  String descriptionRu;
     private  LocalDateTime createdDate;
     private  LocalDateTime updatedDate;
-    private  Boolean visible;
+    private Status status;
 }

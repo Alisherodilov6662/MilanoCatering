@@ -1,6 +1,7 @@
 package com.example.entity.category;
 
 import com.example.entity.AttachEntity;
+import com.example.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -49,4 +50,9 @@ public class InnerCategoryEntity {
     @Column(name = "created_date")
     private LocalDateTime createdDate;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
+
+

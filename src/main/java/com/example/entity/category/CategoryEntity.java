@@ -1,6 +1,7 @@
 package com.example.entity.category;
 
 import com.example.entity.AttachEntity;
+import com.example.enums.Status;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -51,4 +52,7 @@ public class CategoryEntity {
 
     @Column
     private Boolean visible;
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }

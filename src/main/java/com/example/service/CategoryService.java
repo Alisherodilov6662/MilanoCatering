@@ -1,12 +1,12 @@
 package com.example.service;
 
-import com.example.dto.category.superCategory.CategoryGetDTO;
 import com.example.dto.category.superCategory.CategoryCreationDto;
+import com.example.dto.category.superCategory.CategoryGetDTO;
+import com.example.dto.category.superCategory.CategoryGetShortInfo;
 import com.example.entity.category.CategoryEntity;
-import com.example.entity.category.InnerCategoryEntity;
+import com.example.enums.Status;
 import com.example.exception.CategoryAlreadyExistsException;
 import com.example.exception.CategoryNotFoundException;
-import com.example.exception.InnerCategoryNotFoundException;
 import com.example.repositiry.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -34,13 +34,13 @@ public class CategoryService {
         Optional<CategoryEntity> byNameUz = categoryRepository.findByNameUz(dto.getNameUz());
         Optional<CategoryEntity> byNameRu = categoryRepository.findByNameRu(dto.getNameRu());
         if (byNameUz.isPresent() || byNameRu.isPresent()) {
-            throw new CategoryAlreadyExistsException("Category already exists");
+            throw new CategoryAlreadyExistsException("Category is already exists");
         }
         categoryRepository.save(toEntity(dto));
         return dto;
     }
 
-    public CategoryCreationDto update(CategoryCreationDto dto, Long id) {
+    public Boolean update(CategoryCreationDto dto, Long id) {
         CategoryEntity entity = getEntityById(id);
         entity.setPhotoId(dto.getPhoto());
         entity.setNameUz(dto.getNameUz());
@@ -48,35 +48,60 @@ public class CategoryService {
         entity.setDescriptionUz(dto.getDescriptionUz());
         entity.setDescriptionRu(dto.getDescriptionRu());
         categoryRepository.save(entity);
-        return dto;
+        return true;
     }
 
-    public String deleteById(Long id) {
+    public Boolean deleteById(Long id) {
         CategoryEntity entity = getEntityById(id);
         entity.setVisible(false);
         categoryRepository.save(entity);
-        return "successfully deleted !";
+        return true;
     }
 
     public Page<CategoryGetDTO> getList(Integer page, Integer size, String language) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CategoryEntity> pageObj = categoryRepository.findByVisibleTrue(pageable);
+        Page<CategoryEntity> pageObj = categoryRepository.findByStatusAndVisibleTrue(pageable,Status.PUBLISHED);
         List<CategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
         List<CategoryGetDTO> dtoList = new LinkedList<>();
         content.forEach(entity -> dtoList.add(getDTO(entity, language)));
         return new PageImpl<>(dtoList, pageable, totalElements);
+
     }
 
-    public Page<CategoryGetDTO> getListAll(Integer page, Integer size) {
+    public CategoryGetDTO getById(Long id) {
+        CategoryEntity entity = getEntityById(id);
+        return getDtoAll(entity);
+    }
+
+    public CategoryCreationDto getByIdForUpdate(Long id){
+        CategoryEntity entity=getEntityById(id);
+        CategoryCreationDto dto=new CategoryCreationDto();
+        dto.setNameUz(entity.getNameUz());
+        dto.setNameRu(entity.getNameRu());
+        dto.setDescriptionRu(entity.getDescriptionRu());
+        dto.setDescriptionUz(entity.getDescriptionUz());
+        dto.setPhoto(entity.getPhotoId());
+     return dto;
+    }
+
+    public Page<CategoryGetShortInfo> getListAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CategoryEntity> pageObj = categoryRepository.findAll(pageable);
+        Page<CategoryEntity> pageObj = categoryRepository.findByVisibleTrue(pageable);
         List<CategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
-        List<CategoryGetDTO> dtoList = new LinkedList<>();
-        content.forEach(entity -> dtoList.add(getDtoAll(entity)));
+        List<CategoryGetShortInfo> dtoList = new LinkedList<>();
+        content.forEach(entity -> dtoList.add(getShortDTO(entity)));
         return new PageImpl<>(dtoList, pageable, totalElements);
     }
+
+    private CategoryGetShortInfo getShortDTO(CategoryEntity entity) {
+        CategoryGetShortInfo dto=new CategoryGetShortInfo();
+        dto.setId(entity.getId());
+        dto.setName_Uz(entity.getNameUz());
+        return dto;
+    }
+
 
     private CategoryEntity toEntity(CategoryCreationDto dto) {
         CategoryEntity entity = new CategoryEntity();
@@ -85,16 +110,16 @@ public class CategoryService {
         entity.setDescriptionUz(dto.getDescriptionUz());
         entity.setDescriptionRu(dto.getDescriptionRu());
         entity.setPhotoId(dto.getPhoto());
-        entity.setVisible(false);
+        entity.setVisible(true);
+        entity.setStatus(Status.NOT_PUBLISHED);
         return entity;
     }
 
     private CategoryEntity getEntityById(Long id) {
         Optional<CategoryEntity> optional = categoryRepository.findById(id);
-        if (optional.isEmpty()) {
+        return optional.orElseThrow(() -> {
             throw new CategoryNotFoundException(" Category not found ! ");
-        }
-        return optional.get();
+        });
     }
 
     private CategoryGetDTO getDTO(CategoryEntity entity, String language) {
@@ -114,18 +139,28 @@ public class CategoryService {
 
     private CategoryGetDTO getDtoAll(CategoryEntity entity) {
         CategoryGetDTO dto = new CategoryGetDTO();
+        dto.setId(entity.getId());
+        dto.setCreatedDate(entity.getCreatedDate());
         dto.setPhotoId(entity.getPhotoId());
         dto.setNameRu(entity.getNameRu());
         dto.setNameUz(entity.getNameUz());
         dto.setDescriptionUz(entity.getDescriptionUz());
         dto.setDescriptionRu(entity.getDescriptionRu());
+        dto.setStatus(entity.getStatus());
         return dto;
     }
 
     public String changeStatus(Long id) {
         CategoryEntity entity = getEntityById(id);
-        entity.setVisible(true);
+        if (entity.getStatus().equals(Status.NOT_PUBLISHED)) {
+            entity.setStatus(Status.PUBLISHED);
+            categoryRepository.save(entity);
+            return "Status successfully changed to PUBLISHED";
+        }
+        if (entity.getStatus().equals(Status.PUBLISHED)) {
+            entity.setStatus(Status.NOT_PUBLISHED);
+        }
         categoryRepository.save(entity);
-        return "Status successfully changed";
+        return "Status successfully changed to NOT_PUBLISHED";
     }
 }
