@@ -19,5 +19,4 @@ public class InnerCategoryGetDTO {
     private String descriptionRu;
     private String descriptionUz;
     private Status status;
-    private LocalDateTime createdDate;
 }

@@ -62,15 +62,6 @@ public class CategoryController {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping({"/getListAll"})
-    @Operation(summary = "Method for get", description = "This method used to get all Category with pagination for Admin")
-    @SecurityRequirement(name = "Bearer Authentication")
-    public ResponseEntity<Page<CategoryGetDTO>> getListAll(@PathParam("page") Integer page, @PathParam("size") Integer size) {
-        Page<CategoryGetDTO> result = categoryService.getListAll(page, size);
-        return ResponseEntity.ok(result);
-    }
-
-    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Method for change status", description = "This method used to change status Category")
     @SecurityRequirement(name = "Bearer Authentication")
     @PutMapping({"/changeStatus/{id}"})
@@ -98,16 +89,11 @@ public class CategoryController {
     }
 
     @GetMapping({"/public/QuantityOfNotPublished"})
-    @Operation(
-            summary = "Method for get",
-            description = "This method used to get quantity of Categories which are not published"
-    )
+    @Operation(summary = "Method for get", description = "This method used to get quantity of Categories which are not published")
     public ResponseEntity<?> getQuantityNotPublishedCategory() {
-        Integer result = this.categoryService.getQuantity();
+        Integer result = categoryService.getQuantity();
         return ResponseEntity.ok(result);
     }
-
-
 }
 
 

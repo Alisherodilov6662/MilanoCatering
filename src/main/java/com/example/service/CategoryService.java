@@ -32,7 +32,7 @@ public class CategoryService {
     public CategoryCreationDto create(CategoryCreationDto dto) {
         Optional<CategoryEntity> byNameUz = categoryRepository.findByNameUz(dto.getNameUz());
         Optional<CategoryEntity> byNameRu = categoryRepository.findByNameRu(dto.getNameRu());
-        if (!byNameUz.isPresent() && !byNameRu.isPresent()) {
+        if (byNameUz.isEmpty() && byNameRu.isEmpty()) {
             this.categoryRepository.save(toEntity(dto));
             return dto;
         } else {
@@ -63,23 +63,9 @@ public class CategoryService {
         Page<CategoryEntity> pageObj = categoryRepository.findByVisibleTrue(pageable);
         List<CategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
-        List<CategoryGetDTO> dtoList = new LinkedList();
-        content.forEach((entity) -> {
-            dtoList.add(getDTO(entity, language));
-        });
-        return new PageImpl(dtoList, pageable, totalElements);
-    }
-
-    public Page<CategoryGetDTO> getListAll(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<CategoryEntity> pageObj = categoryRepository.findAll(pageable);
-        List<CategoryEntity> content = pageObj.getContent();
-        long totalElements = pageObj.getTotalElements();
-        List<CategoryGetDTO> dtoList = new LinkedList();
-        content.forEach((entity) -> {
-            dtoList.add(getDtoAll(entity));
-        });
-        return new PageImpl(dtoList, pageable, totalElements);
+        List<CategoryGetDTO> dtoList = new LinkedList<>();
+        content.forEach((entity) -> dtoList.add(getDTO(entity, language)));
+        return new PageImpl<>(dtoList, pageable, totalElements);
     }
 
     private CategoryEntity toEntity(CategoryCreationDto dto) {
@@ -121,16 +107,6 @@ public class CategoryService {
         return dto;
     }
 
-    private CategoryGetDTO getDtoAll(CategoryEntity entity) {
-        CategoryGetDTO dto = new CategoryGetDTO();
-        dto.setPhotoId(entity.getPhotoId());
-        dto.setNameRu(entity.getNameRu());
-        dto.setNameUz(entity.getNameUz());
-        dto.setDescriptionUz(entity.getDescriptionUz());
-        dto.setDescriptionRu(entity.getDescriptionRu());
-        return dto;
-    }
-
     public String changeStatus(Long id) {
         CategoryEntity entity = getEntityById(id);
         entity.setVisible(true);
@@ -143,10 +119,8 @@ public class CategoryService {
         if (list.isEmpty()) {
             return null;
         } else {
-            List<CategoryGetForPublish> listDto = new ArrayList();
-            list.forEach((entity) -> {
-                listDto.add(toDTO(entity));
-            });
+            List<CategoryGetForPublish> listDto = new ArrayList<>();
+            list.forEach((entity) -> listDto.add(toDTO(entity)));
             return listDto;
         }
     }
@@ -164,8 +138,7 @@ public class CategoryService {
         if (entities.isEmpty()) {
             return 0;
         } else {
-            Integer result = entities.size();
-            return result;
+            return entities.size();
         }
     }
 

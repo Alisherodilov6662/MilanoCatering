@@ -13,25 +13,24 @@ import com.example.exception.InnerCategoryNotFoundException;
 import com.example.repositiry.InnerCategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @Service
 public class InnerCategoryService {
+
     @Autowired
     private final InnerCategoryRepository innerCategoryRepository;
 
     public InnerCategoryCreationDto create(InnerCategoryCreationDto innerCategoryCreationDto) {
         Optional<InnerCategoryEntity> byNameUz = innerCategoryRepository.findByNameUz(innerCategoryCreationDto.getNameUz());
         Optional<InnerCategoryEntity> byNameRu = innerCategoryRepository.findByNameRu(innerCategoryCreationDto.getNameRu());
-        if (!byNameUz.isPresent() && !byNameRu.isPresent()) {
+        if (byNameUz.isEmpty() && byNameRu.isEmpty()) {
             InnerCategoryEntity entity = toEntity(innerCategoryCreationDto);
             innerCategoryRepository.save(entity);
             return innerCategoryCreationDto;
@@ -82,17 +81,6 @@ public class InnerCategoryService {
         }
     }
 
-    public Page<InnerCategoryGetDTO> getList(Integer page, Integer size, String language) {
-        Pageable pageable = PageRequest.of(page, size);
-        Page<InnerCategoryEntity> pageObj = innerCategoryRepository.findByVisibleTrue(pageable);
-        List<InnerCategoryEntity> content = pageObj.getContent();
-        long totalElements = pageObj.getTotalElements();
-        List<InnerCategoryGetDTO> dtoList = new LinkedList();
-        content.forEach((entity) -> {
-            dtoList.add(getDTO(entity, language));
-        });
-        return new PageImpl(dtoList, pageable, totalElements);
-    }
 
     public InnerCategoryGetDTO getDTO(InnerCategoryEntity entity, String language) {
         InnerCategoryGetDTO dto = new InnerCategoryGetDTO();
@@ -165,7 +153,6 @@ public class InnerCategoryService {
         dto.setDescriptionRu(entity.getDescriptionRu());
         dto.setDescriptionUz(entity.getDescriptionUz());
         dto.setStatus(entity.getStatus());
-        dto.setCreatedDate(entity.getCreatedDate());
         return dto;
     }
 
@@ -174,10 +161,8 @@ public class InnerCategoryService {
         if (list.isEmpty()) {
             throw new CategoryNotFoundException(" InnerCategory not found !");
         } else {
-            List<CategoryGetForPublish> listDto = new ArrayList();
-            list.forEach((entity) -> {
-                listDto.add(toDTO(entity));
-            });
+            List<CategoryGetForPublish> listDto = new ArrayList<>();
+            list.forEach((entity) -> listDto.add(toDTO(entity)));
             return listDto;
         }
     }
@@ -195,20 +180,19 @@ public class InnerCategoryService {
         if (entities.isEmpty()) {
             return 0;
         } else {
-            Integer result = entities.size();
-            return result;
+            return entities.size();
         }
     }
 
     public List<InnerCategoryGetDTO> getByCategoryId(Long id, String lang) {
         List<InnerCategoryEntity> entities = innerCategoryRepository.getByCategoryId(id);
-        List<InnerCategoryGetDTO> dtos = new LinkedList();
+        List<InnerCategoryGetDTO> dtos = new LinkedList<>();
         if (entities.isEmpty()) {
             return null;
         } else {
             for(InnerCategoryEntity entity : entities){
                 if (entity.getVisible().equals(Boolean.TRUE) && entity.getStatus().equals(Status.PUBLISHED)) {
-                    dtos.add(toGetDTO(entity));
+                    dtos.add(getDTO(entity,lang));
                 }
             }
 

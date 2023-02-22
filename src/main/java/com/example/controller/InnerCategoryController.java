@@ -9,9 +9,7 @@ import com.example.service.InnerCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -41,12 +39,13 @@ public class InnerCategoryController {
         return ResponseEntity.ok(result);
     }
 
-    @GetMapping({"/public/getList/{lang}"})
-    @Operation(summary = "Method for get", description = "This method used to get inner category with pagination")
-    public ResponseEntity<Page<InnerCategoryGetDTO>> getList(@PathVariable("lang") Language lang, @PathParam("page") Integer page, @PathParam("size") Integer size) {
-        Page<InnerCategoryGetDTO> result = innerCategoryService.getList(page, size, lang.name());
+    @GetMapping({"/public/getInnerCategoryById/{id}"})
+    @Operation(summary = "Method for get", description = "This method is used for getting InnerCategory By Id")
+    public ResponseEntity<?> getInnerCategoryById(@PathVariable("id") Long id) {
+        InnerCategoryGetDTO result = innerCategoryService.getById(id);
         return ResponseEntity.ok(result);
     }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping({"/delete/{id}"})

@@ -1,5 +1,7 @@
 package com.example.dto.category.innerCategory;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
@@ -12,6 +14,7 @@ import java.io.Serializable;
 
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class InnerCategoryCreationDto {
     @NotNull(message = "photo id is required")
     private Long photo;
