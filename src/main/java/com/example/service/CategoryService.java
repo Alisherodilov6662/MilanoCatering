@@ -33,7 +33,7 @@ public class CategoryService {
         Optional<CategoryEntity> byNameUz = categoryRepository.findByNameUz(dto.getNameUz());
         Optional<CategoryEntity> byNameRu = categoryRepository.findByNameRu(dto.getNameRu());
         if (byNameUz.isEmpty() && byNameRu.isEmpty()) {
-            this.categoryRepository.save(toEntity(dto));
+            categoryRepository.save(toEntity(dto));
             return dto;
         } else {
             throw new CategoryAlreadyExistsException("Category already exists");
@@ -60,7 +60,7 @@ public class CategoryService {
 
     public Page<CategoryGetDTO> getList(Integer page, Integer size, String language) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<CategoryEntity> pageObj = categoryRepository.findByVisibleTrue(pageable);
+        Page<CategoryEntity> pageObj = categoryRepository. getWithPagination(Status.PUBLISHED.name(),Boolean.TRUE, pageable);
         List<CategoryEntity> content = pageObj.getContent();
         long totalElements = pageObj.getTotalElements();
         List<CategoryGetDTO> dtoList = new LinkedList<>();
@@ -109,7 +109,7 @@ public class CategoryService {
 
     public String changeStatus(Long id) {
         CategoryEntity entity = getEntityById(id);
-        entity.setVisible(true);
+        entity.setStatus(Status.PUBLISHED);
         this.categoryRepository.save(entity);
         return "Status successfully changed";
     }

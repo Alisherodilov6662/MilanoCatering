@@ -22,11 +22,12 @@ public interface CategoryRepository extends JpaRepository<CategoryEntity,Long> {
 
     Optional<CategoryEntity> findByNameRu(String nameRu);
 
-    Page<CategoryEntity> findByStatusAndVisibleTrue(Pageable pageable, Status status);
+    @Query(value = "select * from category where status=?1 and visible=?2", nativeQuery = true)
 
-    Page<CategoryEntity> findByVisibleTrue(Pageable pageable);
+    Page<CategoryEntity> getWithPagination(String status, Boolean visible, Pageable pageable);
+
 
 
     @Query(value = "select * from category where status=?1 and visible=?2", nativeQuery = true)
-    List<CategoryEntity> findByStatusNotPublished(String name, Boolean visible);
+    List<CategoryEntity> findByStatusNotPublished(String status, Boolean visible);
 }
