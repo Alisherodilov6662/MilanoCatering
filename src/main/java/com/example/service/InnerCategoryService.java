@@ -106,14 +106,15 @@ public class InnerCategoryService {
             InnerCategoryEntity entity = optional.get();
             if (entity.getStatus().equals(Status.PUBLISHED)) {
                 entity.setStatus(Status.NOT_PUBLISHED);
-                this.innerCategoryRepository.save(entity);
+                innerCategoryRepository.save(entity);
                 return "Status successfully changed to not published";
             } else {
                 if (entity.getStatus().equals(Status.NOT_PUBLISHED)) {
                     entity.setStatus(Status.PUBLISHED);
+                    innerCategoryRepository.save(entity);
                 }
 
-                this.innerCategoryRepository.save(entity);
+
                 return "Status successfully changed to published";
             }
         }

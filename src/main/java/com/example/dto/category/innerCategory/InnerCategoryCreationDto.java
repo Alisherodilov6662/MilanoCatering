@@ -24,8 +24,8 @@ public class InnerCategoryCreationDto {
     private String nameUz;
     @Length(min = 2,message = "Length must be longer than 2")
     private String nameRu;
-    @Length(min = 20,message = "Length must be longer then 20")
+    @Length(min = 5,message = "Length must be longer then 20")
     private String descriptionUz;
-    @Length(min = 20,message = "Length must be longer then 20")
+    @Length(min = 5,message = "Length must be longer then 20")
     private String descriptionRu;
 }

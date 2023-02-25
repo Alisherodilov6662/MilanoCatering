@@ -18,8 +18,8 @@ public interface InnerCategoryRepository extends JpaRepository<InnerCategoryEnti
 
     Page<InnerCategoryEntity> findByVisibleTrue(Pageable pageable);
 
-    @Query(value = "select * from category where status=?1 and visible=?2", nativeQuery = true)
-    List<InnerCategoryEntity> findByStatusNotPublished(String name, Boolean aTrue);
+    @Query(value = "select * from inner_category where status=?1 and visible=?2", nativeQuery = true)
+    List<InnerCategoryEntity> findByStatusNotPublished(String name, Boolean visible);
 
     @Query(value = "select * from inner_category where category_id=?1", nativeQuery = true)
     List<InnerCategoryEntity> getByCategoryId(Long id);
