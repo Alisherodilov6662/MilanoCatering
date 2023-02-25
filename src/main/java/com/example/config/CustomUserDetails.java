@@ -23,6 +23,7 @@ public class CustomUserDetails implements UserDetails {
         return list;
     }
 
+
     @Override
     public String getPassword() {
         return profile.getPassword();
