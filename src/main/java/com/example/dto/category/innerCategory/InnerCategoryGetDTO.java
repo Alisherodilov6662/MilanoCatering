@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @Setter
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class InnerCategoryGetDTO {
+    private Long id;
     private Long photo;
     private String nameRu;
     private String nameUz;
     private String descriptionRu;
     private String descriptionUz;
     private Status status;
-    private LocalDateTime createdDate;
 }

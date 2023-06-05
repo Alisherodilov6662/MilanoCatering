@@ -23,6 +23,7 @@ public class CustomUserDetails implements UserDetails {
         return list;
     }
 
+
     @Override
     public String getPassword() {
         return profile.getPassword();
@@ -51,5 +52,6 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+
     }
 }

@@ -18,16 +18,18 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+
 @Component
 public class JwtFilter extends OncePerRequestFilter {
     @Autowired
     private CustomUserDetailService customUserDetailService;
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
         final String header = request.getHeader("Authorization");
-        if (header == null || !header.startsWith("Bearer")){
-            filterChain.doFilter(request,response);
+        if (header == null || !header.startsWith("Bearer")) {
+            filterChain.doFilter(request, response);
             return;
         }
         try {
@@ -38,12 +40,12 @@ public class JwtFilter extends OncePerRequestFilter {
             UserDetails userDetails = customUserDetailService.loadUserByUsername(username);
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            filterChain.doFilter(request,response);
+            filterChain.doFilter(request, response);
             return;
-        }catch (JwtException | UsernameNotFoundException e){
+        } catch (JwtException | UsernameNotFoundException e) {
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setHeader("Message", "token not valid");
             return;

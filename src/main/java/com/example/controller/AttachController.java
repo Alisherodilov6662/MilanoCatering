@@ -28,6 +28,7 @@ public class AttachController {
     public ResponseEntity<?> upload(@RequestParam("file") MultipartFile file) {
         AttachFullInfoDTO fileName = attachService.saveToSystem(file);
         return ResponseEntity.ok().body(fileName);
+
     }
 
 
@@ -44,6 +45,7 @@ public class AttachController {
     public ResponseEntity<?> deleteById(@PathVariable("id") Long id) {
         Boolean result = attachService.delete(id);
         return ResponseEntity.ok(result);
+
     }
 
 }
