@@ -9,17 +9,17 @@ import java.time.LocalDateTime;
 /**
  * A DTO for the {@link com.example.entity.category.CategoryEntity} entity
  */
-@Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
-public class CategoryGetDTO {
 
-    private  Long id;
-    private  Long photoId;
-    private  String nameUz;
-    private  String nameRu;
-    private  String descriptionUz;
-    private  String descriptionRu;
-    private  LocalDateTime createdDate;
-    private  LocalDateTime updatedDate;
-    private Status status;
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public record CategoryGetDTO(Long id,
+                             Long photoId,
+                             String nameUz,
+                             String nameRu,
+                             String descriptionUz,
+                             String descriptionRu,
+                             LocalDateTime createdDate,
+                             LocalDateTime updatedDate,
+                             Status status) {
+
+
 }
